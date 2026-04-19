@@ -1,6 +1,17 @@
 const {S3Client}= require("@aws-sdk/client-s3")
 
 
+
+
+
+
+
+
+
+
+
+
+
 const r2Client = new S3Client({
 
     region:"auto",

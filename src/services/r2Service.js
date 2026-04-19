@@ -7,7 +7,7 @@ const{v4: uuidv4} = require("uuid")
 
 const uploadToR2 = async(file)=>{
 
-    const fileName = `${uuidv4()}-${file.originalName}`
+    const fileName = `${uuidv4()}-${file.originalname}`
 
     const command = new PutObjectCommand({
 
@@ -30,12 +30,12 @@ const uploadToR2 = async(file)=>{
 
 
 
-const deleteFromR2= async(filename)=>{
+const deleteFromR2= async(fileName)=>{
 
     const command = new DeleteObjectCommand({
 
         Bucket: process.env.R2_BUCKET_NAME,
-        Key: filename
+        Key: fileName
     }
         
   )
