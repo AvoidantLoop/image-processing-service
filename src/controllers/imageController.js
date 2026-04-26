@@ -36,7 +36,7 @@ exports.getImages = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
-    const images = await Image.find({ uploadedBy: req.user.id })
+    const images = await Image.find({ uploadedBy: req.user.id,    originalImage: null })
       .skip(skip)
       .limit(limit)
       .sort({ createdAt: -1 });
@@ -136,6 +136,7 @@ exports.transformImageController = async(req,res)=>{
       size: transformedBuffer.length,
       mimetype: transformedFile.mimetype,
       uploadedBy: req.user.id,
+      originalImage: req.params.id
     });
 
 
@@ -153,46 +154,20 @@ exports.transformImageController = async(req,res)=>{
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+exports.getTransforms = async (req, res) => {
+  try {
+    const transforms = await Image.find({ 
+      originalImage: req.params.id,
+      uploadedBy: req.user.id
+    }).sort({ createdAt: -1 });
+
+    res.status(200).json({ transforms });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
 
 
 

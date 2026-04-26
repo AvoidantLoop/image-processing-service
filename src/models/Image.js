@@ -29,7 +29,13 @@ const imageSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required:true
-    }
+    },
+
+    originalImage: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Image",
+    default: null
+}
 
 
 },        
